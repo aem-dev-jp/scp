@@ -2,8 +2,8 @@
 Your project's description...
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.aem.page/
-- Live: https://main--{repo}--{owner}.aem.live/
+- Preview: https://main--singleapublish--aem-dev-jp.aem.page/
+- Live: https://main--singleapublish--aem-dev-jp.aem.live/
 
 ## Documentation
 
