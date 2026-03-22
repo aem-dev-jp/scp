@@ -31,7 +31,21 @@ function adminPathSegments(webPath) {
 }
 
 /**
- * Parse Sidekick passConfig / URL (ref, repo, owner, host).
+ * ref--repo--owner.aem.page 形式のホストからプロジェクトを解決する。
+ * @param {string} host
+ * @returns {{ ref: string, repo: string, owner: string } | null}
+ */
+function parseHelixPreviewHost(host) {
+  if (!host || typeof host !== 'string') return null;
+  const m = host.trim().match(/^([^-]+)--([^-]+)--([^.]+)\./);
+  if (!m) return null;
+  const [, hRef, hRepo, hOwner] = m;
+  return { ref: hRef, repo: hRepo, owner: hOwner };
+}
+
+/**
+ * Parse Sidekick passConfig / URL (ref, repo, owner, host)。
+ * クエリに host が無い場合は、パレット自身の hostname（プレビュー origin）から補完する。
  * @returns {{ ref: string, repo: string, owner: string }}
  */
 function parseProjectParams() {
@@ -42,12 +56,25 @@ function parseProjectParams() {
     owner: q.get('owner') || '',
   };
 
-  const host = q.get('host') || '';
-  if (host && (!fromQuery.repo || !fromQuery.owner)) {
-    const m = host.match(/^([^-]+)--([^-]+)--([^.]+)\./);
-    if (m) {
-      const [, hRef, hRepo, hOwner] = m;
-      return { ref: hRef, repo: hRepo, owner: hOwner };
+  const hostFromQuery = q.get('host') || '';
+  const hostFromPage = typeof window !== 'undefined' ? window.location.hostname : '';
+  const helixFromQuery = parseHelixPreviewHost(hostFromQuery);
+  if (helixFromQuery && (!fromQuery.repo || !fromQuery.owner)) {
+    return {
+      ref: fromQuery.ref || helixFromQuery.ref,
+      repo: helixFromQuery.repo,
+      owner: helixFromQuery.owner,
+    };
+  }
+
+  if (!fromQuery.repo || !fromQuery.owner) {
+    const helixFromPage = parseHelixPreviewHost(hostFromPage);
+    if (helixFromPage) {
+      return {
+        ref: fromQuery.ref || helixFromPage.ref,
+        repo: helixFromPage.repo,
+        owner: helixFromPage.owner,
+      };
     }
   }
 
@@ -153,7 +180,15 @@ function deriveLiveUrl(data, org, site, ref, webPath) {
  * @returns {Promise<{ liveUrl: string }>}
  */
 async function runViaOrchestrator(orchestratorUrl, payload) {
-  const res = await fetch(orchestratorUrl, {
+  // クエリも付与する（I/O Runtime が JSON を params に載せない場合のフォールバック）
+  const u = new URL(orchestratorUrl);
+  u.searchParams.set('org', payload.org);
+  u.searchParams.set('owner', payload.org);
+  u.searchParams.set('site', payload.site);
+  u.searchParams.set('repo', payload.site);
+  if (payload.ref) u.searchParams.set('ref', payload.ref);
+
+  const res = await fetch(u.toString(), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
