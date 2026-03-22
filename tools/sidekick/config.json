@@ -14,6 +14,20 @@
       "paletteRect": "top:48px;right:12px;width:min(420px,92vw);height:min(520px,85vh)",
       "passConfig": true,
       "passReferrer": true
+    },
+    {
+      "id": "scp-sidekick-debug",
+      "title": "Debug (SCP)",
+      "titleI18n": {
+        "en": "Debug (SCP)",
+        "ja": "デバッグ（SCP）"
+      },
+      "environments": ["any"],
+      "url": "/tools/sidekick/debug.html",
+      "isPalette": true,
+      "paletteRect": "top:48px;right:12px;width:min(380px,90vw);height:min(280px,60vh)",
+      "passConfig": true,
+      "passReferrer": false
     }
   ]
 }
