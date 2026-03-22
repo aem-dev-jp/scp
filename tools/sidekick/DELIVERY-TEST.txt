@@ -1,0 +1,1 @@
+This file is not .md (see root .hlxignore *.md). If you can fetch this URL with HTTP 200 on your preview host, tools/sidekick is on the code bus.

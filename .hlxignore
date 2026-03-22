@@ -5,3 +5,8 @@ LICENSE
 package.json
 package-lock.json
 test/*
+
+# Sidekick: explicitly allow tools/sidekick (config + HTML/JS for plugins)
+!tools/
+!tools/sidekick/
+!tools/sidekick/**
