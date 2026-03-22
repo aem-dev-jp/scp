@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preview &amp; Publish</title>
+  <link rel="stylesheet" href="./preview-publish.css" />
+</head>
+<body>
+  <div class="pp-root">
+    <h1 class="pp-title">Preview &amp; Publish</h1>
+    <p class="pp-desc">プレビューを更新したあと公開し、ライブ（.aem.live）を開きます。プレビューには数秒かかることがあります。</p>
+    <label class="pp-label" for="pp-path">Web path</label>
+    <input type="text" id="pp-path" class="pp-input" placeholder="/ または /foo/bar" value="/" autocomplete="off" />
+    <button type="button" id="pp-run" class="pp-btn">プレビューして公開</button>
+    <div id="pp-log" class="pp-log" role="status" aria-live="polite"></div>
+  </div>
+  <script src="./preview-publish-palette.js" type="module"></script>
+</body>
+</html>

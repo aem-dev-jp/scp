@@ -1,0 +1,79 @@
+/* Preview & Publish Sidekick palette */
+.pp-root {
+  box-sizing: border-box;
+  padding: 16px;
+  font-family: adobe-clean, 'Source Sans Pro', -apple-system, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #222;
+  background: #fff;
+}
+
+.pp-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.pp-desc {
+  margin: 0 0 16px;
+  color: #464646;
+}
+
+.pp-label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.pp-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.pp-input:focus {
+  outline: 2px solid #2680eb;
+  outline-offset: 1px;
+}
+
+.pp-btn {
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 4px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: #2680eb;
+  cursor: pointer;
+}
+
+.pp-btn:hover {
+  background: #1473e6;
+}
+
+.pp-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.pp-log {
+  margin-top: 14px;
+  padding: 10px;
+  min-height: 4em;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.pp-log.pp-log-error {
+  background: #ffebe7;
+  color: #c9252d;
+}
