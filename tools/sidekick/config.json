@@ -3,12 +3,13 @@
   "plugins": [
     {
       "id": "preview-publish",
+      "title": "Preview & Publish",
       "titleI18n": {
         "en": "Preview & Publish",
         "ja": "プレビューして公開"
       },
-      "environments": ["edit", "preview", "dev", "live", "prod"],
-      "url": "/tools/sidekick/preview-publish.html",
+      "environments": ["any"],
+      "url": "/tools/sidekick/preview-publish.html?orchestrator=https%3A%2F%2F285361-singleactionpublish-stage.adobeio-static.net%2Fapi%2Fv1%2Fweb%2Fsingleactionpublish%2Fpreview-publish",
       "isPalette": true,
       "paletteRect": "top:48px;right:12px;width:min(420px,92vw);height:min(520px,85vh)",
       "passConfig": true,
