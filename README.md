@@ -1,5 +1,10 @@
-# Your Project's Title...
-Your project's description...
+# Sidekick Preview & Publish Extention
+This is a Sidekick extension that executes both Preview and Publish with a single click operation (and path specification). Its implementation requires AEM EDS project code and AppBuilder runtime worker code.
+
+## Project Code
+AEM EDS Project : https://github.com/aem-dev-jp/scp
+AppBuilder Runtime : https://github.com/aem-dev-jp/scp-appbuilder-runtime
+
 
 ## Environments
 - Preview: https://main--singleapublish--aem-dev-jp.aem.page/
