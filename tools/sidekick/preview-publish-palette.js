@@ -175,13 +175,41 @@ function deriveLiveUrl(data, org, site, ref, webPath) {
 }
 
 /**
+ * Adobe I/O の Web URL は `.../action.json` で JSON 応答（素のオブジェクト）。末尾なしは message/http 検証に掛かる。
+ * @param {string} url
+ * @returns {string}
+ */
+function ensureJsonWebActionUrl(url) {
+  const u = new URL(url);
+  const p = u.pathname.replace(/\/$/, '');
+  u.pathname = p.endsWith('.json') ? p : `${p}.json`;
+  return u.toString();
+}
+
+/**
+ * `.../preview-publish`（拡張子なし）のときは HTTP 500 + `{"error":"..."}` になり得る。本文が JSON なら error を優先表示する。
+ * @param {string} text
+ * @returns {string}
+ */
+function messageFromOrchestratorErrorBody(text) {
+  if (!text || typeof text !== 'string') return '';
+  try {
+    const j = JSON.parse(text);
+    if (j && typeof j.error === 'string' && j.error.length > 0) return j.error;
+  } catch {
+    /* not JSON */
+  }
+  return text;
+}
+
+/**
  * @param {string} orchestratorUrl
  * @param {object} payload
  * @returns {Promise<{ liveUrl: string }>}
  */
 async function runViaOrchestrator(orchestratorUrl, payload) {
   // クエリも付与する（I/O Runtime が JSON を params に載せない場合のフォールバック）
-  const u = new URL(orchestratorUrl);
+  const u = new URL(ensureJsonWebActionUrl(orchestratorUrl));
   u.searchParams.set('org', payload.org);
   u.searchParams.set('owner', payload.org);
   u.searchParams.set('site', payload.site);
@@ -195,9 +223,24 @@ async function runViaOrchestrator(orchestratorUrl, payload) {
   });
   if (!res.ok) {
     const t = await res.text();
-    throw new Error(t || `Orchestrator ${res.status}`);
+    throw new Error(messageFromOrchestratorErrorBody(t) || `Orchestrator ${res.status}`);
   }
-  return res.json();
+  const raw = await res.json();
+  // OpenWhisk / プロキシが { statusCode, body } を返す場合。body はオブジェクトまたは JSON 文字列のことがある。
+  let data = raw;
+  if (raw && typeof raw.body === 'string') {
+    try {
+      data = JSON.parse(raw.body);
+    } catch {
+      data = raw;
+    }
+  } else if (raw && typeof raw.body === 'object' && raw.body !== null && !Array.isArray(raw.body)) {
+    data = raw.body;
+  }
+  if (data && typeof data.error === 'string' && data.error.length > 0) {
+    throw new Error(data.error);
+  }
+  return data;
 }
 
 function closeSidekickPalette() {

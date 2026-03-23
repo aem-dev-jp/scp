@@ -9,25 +9,11 @@
         "ja": "プレビューして公開"
       },
       "environments": ["any"],
-      "url": "/tools/sidekick/preview-publish.html?orchestrator=https%3A%2F%2F285361-singleactionpublish-stage.adobeio-static.net%2Fapi%2Fv1%2Fweb%2Fsingleactionpublish%2Fpreview-publish",
+      "url": "/tools/sidekick/preview-publish.html?orchestrator=https%3A%2F%2F285361-singleactionpublish-stage.adobeio-static.net%2Fapi%2Fv1%2Fweb%2Fsingleactionpublish%2Fpreview-publish.json",
       "isPalette": true,
       "paletteRect": "top:48px;right:12px;width:min(420px,92vw);height:min(520px,85vh)",
       "passConfig": true,
       "passReferrer": true
-    },
-    {
-      "id": "scp-sidekick-debug",
-      "title": "Debug (SCP)",
-      "titleI18n": {
-        "en": "Debug (SCP)",
-        "ja": "デバッグ（SCP）"
-      },
-      "environments": ["any"],
-      "url": "/tools/sidekick/debug.html",
-      "isPalette": true,
-      "paletteRect": "top:48px;right:12px;width:min(380px,90vw);height:min(280px,60vh)",
-      "passConfig": true,
-      "passReferrer": false
     }
   ]
 }
