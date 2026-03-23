@@ -7,6 +7,8 @@ Your project's description...
 
 ## Documentation
 
+- **Preview & Publish（Sidekick × App Builder）:** [docs/preview-publish.md](docs/preview-publish.md)
+
 Before using the aem-boilerplate, we recommand you to go through the documentation on https://www.aem.live/docs/ and more specifically:
 1. [Developer Tutorial](https://www.aem.live/developer/tutorial)
 2. [The Anatomy of a Project](https://www.aem.live/developer/anatomy-of-a-project)
